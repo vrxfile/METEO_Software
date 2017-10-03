@@ -17,7 +17,7 @@ void setup() {
   delay(1000);
 
   // Инициализация датчика
-  bool status = bme.begin(0x76);
+  bool status = bme.begin();
   if (!status) {
     Serial.println("Could not find a valid BME280 sensor, check wiring!");
     while (1);
