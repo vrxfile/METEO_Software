@@ -11,7 +11,7 @@
 #include <BlynkSimpleEsp8266.h>
 
 // Точка доступа Wi-Fi
-char ssid[] = "MGBot";
+char ssid[] = "IOTIK";
 char pass[] = "Terminator812";
 
 // Расширитель портов
@@ -54,6 +54,8 @@ BlynkTimer timer4;
 
 // Состояния управляющих устройств
 int light_control = 0;
+int pump_control = 0;
+int air_control = 0;
 
 // Параметры сенсоров для IoT сервера
 #define sensorCount 12
@@ -202,6 +204,24 @@ BLYNK_WRITE(V100)
   Serial.print("Light power: ");
   Serial.println(light_control);
   pcf8574.write(0, light_control);
+}
+
+// Управление поливом с Blynk
+BLYNK_WRITE(V101)
+{
+  pump_control = param.asInt();
+  Serial.print("Pump power: ");
+  Serial.println(pump_control);
+  pcf8574.write(1, pump_control);
+}
+
+// Управление вентиляцией с Blynk
+BLYNK_WRITE(V102)
+{
+  air_control = param.asInt();
+  Serial.print("Air cooler power: ");
+  Serial.println(air_control);
+  pcf8574.write(2, air_control);
 }
 
 // Print sensors data to terminal
